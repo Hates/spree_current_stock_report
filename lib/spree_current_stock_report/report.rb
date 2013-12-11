@@ -1,6 +1,8 @@
 module SpreeCurrentStockReport
   class Report
 
+    START_DATE = Date.parse("1/1/2013")
+
     def self.generate
       new.generate
     end
@@ -27,7 +29,7 @@ module SpreeCurrentStockReport
       ]
 
       totals = {}
-      line_items = Spree::Order.complete.collect(&:line_items).flatten
+      line_items = Spree::Order.complete.ransack(created_at_gt: START_DATE.to_s(:sql)).result.collect(&:line_items).flatten
       line_items.each do |line_item|
         next if line_item.variant.deleted?
 

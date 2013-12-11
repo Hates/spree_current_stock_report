@@ -3,7 +3,7 @@ Spree::Admin::ReportsController.class_eval do
 
   before_filter do
     Spree::Admin::ReportsController::AVAILABLE_REPORTS.merge!({
-      current_stock: { name: Spree.t(:current_stock_report).html_safe + %{ <i class="icon-table"></i>}.html_safe description: Spree.t(:current_stock_report_description) },
+      current_stock: { name: Spree.t(:current_stock_report).html_safe + %{ <i class="icon-table"></i>}.html_safe, description: Spree.t(:current_stock_report_description) },
     })
   end
 
