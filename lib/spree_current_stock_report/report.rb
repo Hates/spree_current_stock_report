@@ -1,8 +1,6 @@
 module SpreeCurrentStockReport
   class Report
 
-    START_DATE = Date.parse("1/1/2013")
-
     def self.generate
       new.generate
     end
@@ -28,8 +26,11 @@ module SpreeCurrentStockReport
         "Total Price"
       ]
 
+      first_order = Spree::Order.complete.order("created_at ASC").take
+      start_date = first_order.created_at
+
       totals = {}
-      line_items = Spree::Order.complete.ransack(created_at_gt: START_DATE.to_s(:sql)).result.collect(&:line_items).flatten
+      line_items = Spree::Order.complete.ransack(created_at_gt: start_date.to_s(:sql)).result.collect(&:line_items).flatten
       line_items.each do |line_item|
         next if line_item.variant.deleted?
 
@@ -87,7 +88,7 @@ module SpreeCurrentStockReport
 
         if total
           current_date = Time.zone.now
-          number_of_months = (current_date.year * 12 + current_date.month) - (START_DATE.year * 12 + START_DATE.month)
+          number_of_months = (current_date.year * 12 + current_date.month) - (start_date.year * 12 + start_date.month)
           sold_per_month = sold.to_f / number_of_months 
 
           report_attributes <<(sold_per_month).round(2)
