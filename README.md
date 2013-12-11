@@ -9,7 +9,7 @@ Installation
 Add spree_current_stock_report to your Gemfile:
 
 ```ruby
-gem 'spree_current_stock_report', github: "Hates/spree_free_item_action"
+gem 'spree_current_stock_report', github: "Hates/spree_current_stock_report"
 
 ```
 
