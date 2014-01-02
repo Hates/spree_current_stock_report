@@ -9,12 +9,8 @@ module SpreeCurrentStockReport
       report_columns = [
         "Variant ID",
         "SKU",
-        "Barcode",
-        "Enabled",
-        "Brand",
         "Name",
         "Variant",
-        "Size",
         "Current Stock",
         "Sales (Total)",
         "Sales (Past 30 Days)",
@@ -66,12 +62,8 @@ module SpreeCurrentStockReport
         report_attributes = []
         report_attributes << v.id
         report_attributes << "'#{v.sku}'"
-        report_attributes << "'#{v.barcode}'"
-        report_attributes << v.product.enabled
-        report_attributes << v.product.brand_taxon_root.try(:name)
         report_attributes << v.product.name
         report_attributes << v.options_text
-        report_attributes << v.size
         report_attributes << on_hand
 
         if total
