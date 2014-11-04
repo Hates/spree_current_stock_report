@@ -12,4 +12,5 @@ Spree::Admin::ReportsController.class_eval do
 
     send_data report.to_csv, filename: report_name, type: report_type
   end
+
 end
